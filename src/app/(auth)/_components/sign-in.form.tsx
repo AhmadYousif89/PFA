@@ -13,16 +13,21 @@ export const SignInForm = () => {
   const handleSignIn = async (prevState: FormState, form: FormData) => {
     try {
       const res = await signInFn(prevState, form);
-      if (res.data) {
-        await signInWithEmail({
-          email: res.data.email,
-          password: res.data.password,
-        });
-        router.push("/dashboard");
-        return { success: true, error: null };
+      if (res.error) {
+        return { success: false, error: res.error ?? "Invalid form submission" };
       }
 
-      return { success: false, error: res.error ?? "Invalid form submission" };
+      const authRes = await signInWithEmail({
+        email: res.data.email,
+        password: res.data.password,
+      });
+
+      if (authRes.error) {
+        return { success: false, error: authRes.error.message || "Authentication failed" };
+      }
+
+      router.push("/dashboard");
+      return { success: true, error: null };
     } catch (error) {
       console.error("SignIn: Error during sign-in:", error);
       return { success: false, error: "Unexpected error during sign in" };
