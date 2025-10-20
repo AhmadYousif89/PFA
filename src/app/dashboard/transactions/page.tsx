@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 
+import { auth } from "@/app/(auth)/_lib/auth";
+import { getAvatars } from "@/lib/get-avatars";
 import { getTransactions } from "../../shared-data/transactions";
 import { TransactionTable } from "./_components/transactions.table";
 import { TransactionCreationModal } from "./_components/create.modal";
-import { getAvatars } from "@/lib/get-avatars";
-import { checkDemoRequest } from "@/app/shared-data/scope-userId";
 
 export const metadata: Metadata = {
   title: "Transactions - Personal Finance App",
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default async function TransactionsPage() {
-  const [isdemo, transactions, avatars] = await Promise.all([
-    checkDemoRequest(),
+  const [session, transactions, avatars] = await Promise.all([
+    auth.api.getSession({ headers: await headers() }),
     getTransactions(),
     getAvatars(),
   ]);
@@ -27,7 +28,7 @@ export default async function TransactionsPage() {
             View and manage your transactions with ease.
           </p>
         </div>
-        {!isdemo && <TransactionCreationModal avatars={avatars} />}
+        {session && <TransactionCreationModal avatars={avatars} />}
       </header>
       <TransactionTable transactions={transactions} />
     </div>
