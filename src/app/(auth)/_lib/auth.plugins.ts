@@ -19,7 +19,7 @@ export const onBoardingPlugin = () => {
 
         try {
           payload = (await ctx.body) as StashBody;
-        } catch (e) {
+        } catch {
           return ctx.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
         }
 
