@@ -24,7 +24,8 @@ export default function NotFound() {
         </svg>
         <h1 className="my-4 text-center text-xl font-bold">404 - Page Not Found</h1>
         <p className="text-muted-foreground text-center text-lg">
-          Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+          Oops! The page you&apos;re looking for doesn&apos;t exist. It might have been moved or
+          deleted.
         </p>
       </div>
     </main>
