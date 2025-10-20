@@ -31,13 +31,12 @@ export async function createTransactionAction(prevState: unknown, formData: Form
     avatar: `/assets/images/avatars/${formData.get("avatar")}`,
   };
 
-  console.log("Raw form data:", rawData);
   try {
     const { success, data, error } = transactionSchema.safeParse(rawData);
     if (!success) {
       throw new Error(error.issues.map((err) => err.message).join(", ") || "Validation failed");
     }
-    console.log("Validated data:", data);
+
     const session = await auth.api.getSession({ headers: await headers() });
     const userId = await getScopedUserId(session?.user.id);
     if (!userId) throw new Error("Unauthorized");

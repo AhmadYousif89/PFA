@@ -11,7 +11,6 @@ export const onboardingClientPlugin = {
   getActions: ($fetch) => {
     return {
       stash: async (stash: StashBody, fetchOptions?: BetterFetchOption) => {
-        console.log("API: Stashing onboarding data", stash);
         if (
           !stash ||
           typeof stash !== "object" ||
@@ -34,7 +33,6 @@ export const onboardingClientPlugin = {
           ...fetchOptions,
         });
         if (error) {
-          console.log("AuthClient: Error stashing onboarding data :", error);
           return {
             message: error.message || "API:Error stashing onboarding data",
             status: error.status,
@@ -51,7 +49,6 @@ export const onboardingClientPlugin = {
         });
 
         if (error) {
-          console.log("AuthClient: Error finalizing onboarding :", error);
           return {
             message: error.message || "Error finalizing onboarding",
             status: error.status,

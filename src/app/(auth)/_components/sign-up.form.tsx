@@ -17,11 +17,16 @@ export const SignUpForm = () => {
         return { success: false, error: res.error ?? "Invalid form submission" };
       }
 
-      await signUpWithEmail({
+      const authRes = await signUpWithEmail({
         name: res.data.name,
         email: res.data.email,
         password: res.data.password,
       });
+
+      if (authRes.error) {
+        const errorMessage = authRes.error?.message || "Sign-up failed, please try again.";
+        return { success: false, error: errorMessage };
+      }
 
       const finalizeRes = await onboardingClient.finalize();
 
@@ -30,7 +35,7 @@ export const SignUpForm = () => {
         return { success: true, error: null };
       }
 
-      return { success: false, error: "Finalizing onboarding failed" };
+      return { success: false, error: "Finalizing onboarding failed client" };
     } catch (error) {
       console.error("SignUp: Error during sign-in or finalize:", error);
       return { success: false, error: "Unexpected error during sign up" };

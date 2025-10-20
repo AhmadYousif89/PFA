@@ -72,7 +72,6 @@ export async function editPotAction(prevState: unknown, formData: FormData) {
       existingPot.theme !== updatedPot.theme;
 
     if (!hasChanges) {
-      console.log("No changes detected in the pot");
       return { success: true, message: "No changes made to the pot" };
     }
 

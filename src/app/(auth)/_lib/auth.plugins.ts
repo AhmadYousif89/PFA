@@ -19,9 +19,7 @@ export const onBoardingPlugin = () => {
 
         try {
           payload = (await ctx.body) as StashBody;
-          console.log("Received onboarding stash payload:", payload);
         } catch (e) {
-          console.log("Error parsing JSON body:", e);
           return ctx.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
         }
 
@@ -31,7 +29,6 @@ export const onBoardingPlugin = () => {
         }
 
         const id = await setOnboardingStash(payload);
-        console.log("Onboarding stash ID:", id);
         if (!id) {
           return ctx.json({ ok: false, error: "Failed to stash onboarding data" }, { status: 500 });
         }

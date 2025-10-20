@@ -20,7 +20,6 @@ export function AccountTab() {
       setIsDeleting(true);
       await authClient.revokeOtherSessions();
       const { error, data } = await authClient.deleteUser();
-      console.log("deleteUser data:", data);
       if (data?.success) {
         window.location.href = "/";
         return;

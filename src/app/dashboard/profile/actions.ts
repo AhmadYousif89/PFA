@@ -51,7 +51,6 @@ export async function updateUserName(prevState: unknown, formData: FormData) {
       throw new Error("Failed to update user");
     }
 
-    // revalidatePath("/dashboard", 'layout');
     return { success: true, error: null, message: "Name updated successfully" };
   } catch (error) {
     console.log("Error updating user profile:", error);

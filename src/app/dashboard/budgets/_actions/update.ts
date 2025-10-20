@@ -75,7 +75,6 @@ export async function editBudgetAction(prevState: unknown, formData: FormData) {
       existingBudget.theme !== updatedBudget.theme;
 
     if (!hasChanges) {
-      console.log("No changes detected in the budget");
       return { success: true, message: "No changes made to the budget" };
     }
 

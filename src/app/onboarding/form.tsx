@@ -36,7 +36,6 @@ export const FinancialProfileSetup = () => {
       console.error("Error deleting account:", res.error);
       setIsCanceling(false);
     } else {
-      console.log("Account deleted successfully.");
       window.location.href = "/";
     }
   };

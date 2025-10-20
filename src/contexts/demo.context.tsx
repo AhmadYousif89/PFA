@@ -1,10 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createContext, useMemo, useState, use, useEffect, useRef } from "react";
 
 import { checkDemoCookieClient } from "@/app/(auth)/_lib/auth.client";
 import { DemoSessionExpiredModal } from "@/components/modals/demo-session-expired.modal";
-import { useRouter } from "next/navigation";
 
 type Ctx = { isDemo: boolean; setIsDemo: (v: boolean) => void };
 
@@ -22,7 +22,6 @@ export function DemoModeProvider({ isUser, children }: Props) {
   useEffect(() => {
     if (isUser) return;
     checkDemoCookieClient().then((hasCookie) => {
-      console.log("Initial demo cookie check:", { hasCookie });
       setIsDemo(hasCookie);
       if (!hasCookie) setShowDemoExpired(true);
     });
